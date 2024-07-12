@@ -1,13 +1,11 @@
-import { useState } from 'react'
-
-import './App.css'
-
-function App() {
+import { Home } from "./pages/Home";
+import "./App.css";
+const App = () => {
   return (
     <>
-      <div>Time zone converter</div>
+      <Home />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

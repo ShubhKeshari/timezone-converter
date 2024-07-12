@@ -10,8 +10,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "framer-motion": "^11.3.2",
+    "moment": "^2.30.1",
+    "moment-timezone": "^0.5.45",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-beautiful-dnd": "^13.1.1",
+    "react-datepicker": "^7.3.0",
+    "react-datetime": "^3.2.0",
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.2.1",
+    "react-slider": "^2.0.6",
+    "styled-components": "^6.1.11"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
