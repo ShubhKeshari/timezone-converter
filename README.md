@@ -65,9 +65,8 @@ npm run dev
 
 ## Snapshot of Website
 
-![image](https://github.com/user-attachments/assets/e31cb7cc-74f4-475b-a51d-dfae8c9b9ddd)
-![image](https://github.com/user-attachments/assets/c29183c0-2623-4137-b659-aec3b5d4aa45)
-
+![image](https://github.com/user-attachments/assets/48fe263f-5ce2-490f-921d-da2fb3a90bd3)
+![image](https://github.com/user-attachments/assets/75111c80-8f7f-4081-b2cb-cc0f1a7a8ae1)
 
 
 ## Technology Stack
