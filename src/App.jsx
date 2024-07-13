@@ -1,9 +1,9 @@
-import { Home } from "./pages/Home";
+import { TimezoneConverter } from "./pages/TimezoneConverter";
 import "./App.css";
 const App = () => {
   return (
     <>
-      <Home />
+      <TimezoneConverter />
     </>
   );
 };

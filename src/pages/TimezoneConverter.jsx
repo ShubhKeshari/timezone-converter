@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Flex,
   Select,
   Slider,
   SliderTrack,
-  SliderFilledTrack,
   SliderThumb,
   Text,
   IconButton,
@@ -22,6 +21,8 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import DatePicker from "react-datepicker";
 import moment from "moment-timezone";
 import "react-datepicker/dist/react-datepicker.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const timezonesList = [
   { name: "UTC", offset: 0 },
@@ -36,7 +37,7 @@ const timezonesList = [
   { name: "MSK", offset: 3 },
 ];
 
-const Home = () => {
+const TimezoneConverter = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [timezones, setTimezones] = useState([]);
@@ -112,16 +113,6 @@ const Home = () => {
     setSelectedTimezone("");
   };
 
-  const sliderLabels = [];
-  for (let i = 0; i <= 24 * 60; i += 180) {
-    const hour = (i / 60) % 24;
-    const period = hour >= 12 ? "PM" : "AM";
-    const formattedHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
-    sliderLabels.push(
-      `${formattedHour.toString().padStart(2, "0")}:00 ${period}`
-    );
-  }
-
   const handleSelectChange = (event, timezone) => {
     const [time, period] = event.target.value.split(" ");
     const [hours, minutes] = time.split(":").map(Number);
@@ -147,6 +138,11 @@ const Home = () => {
     return options;
   };
 
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText('https://timezone-converter-ccal.onrender.com/');
+    toast.success('Link copied to clipboard!');
+  };
+
   return (
     <>
       <Heading textAlign={"center"} mt={8}>Timezone Converter</Heading>
@@ -157,8 +153,10 @@ const Home = () => {
             value={selectedTimezone}
             onChange={(e) => {
               const selectedTimezone = timezonesList.find(tz => tz.name === e.target.value);
-              if (selectedTimezone) {
+              if (selectedTimezone && !timezones.some(tz => tz.name === selectedTimezone.name)) {
                 addTimezone(selectedTimezone.name, selectedTimezone.offset);
+              } else {
+                toast.error('Timezone already added!');
               }
             }}
           >
@@ -192,7 +190,7 @@ const Home = () => {
             <Button>
               <MdOutlineSwapVert />
             </Button>
-            <Button>
+            <Button onClick={handleCopyLink}>
               <IoIosLink />
             </Button>
             <Button aria-label="Toggle Color Mode" onClick={toggleColorMode}>
@@ -260,8 +258,6 @@ const Home = () => {
                               onChange={(e) => handleSelectChange(e, timezone)}
                               fontWeight="bold"
                               w="auto"
-                              pl={2}
-                              pt={2}
                             >
                               {getTimeOptions(timezone)}
                             </Select>
@@ -279,8 +275,7 @@ const Home = () => {
                             mt={4}
                             h={8}
                           >
-                            <SliderTrack h={8}>
-                            </SliderTrack>
+                            <SliderTrack h={8}></SliderTrack>
                             <SliderThumb boxSize={8} borderRadius="sm" grabbable>
                               <Box color="blue.500" fontSize="xs">
                                 {moment()
@@ -294,11 +289,6 @@ const Home = () => {
                               </Box>
                             </SliderThumb>
                           </Slider>
-                          <Flex justifyContent="space-between" mt={2}>
-                            {sliderLabels.map((label, i) => (
-                              <Text key={i}>{label}</Text>
-                            ))}
-                          </Flex>
                         </Box>
                       </Flex>
                     )}
@@ -310,9 +300,9 @@ const Home = () => {
           </Droppable>
         </DragDropContext>
       </Box>
+      <ToastContainer />
     </>
   );
 };
 
-export { Home };
-
+export { TimezoneConverter };
