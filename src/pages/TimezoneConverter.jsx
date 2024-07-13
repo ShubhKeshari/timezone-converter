@@ -142,6 +142,15 @@ const TimezoneConverter = () => {
     navigator.clipboard.writeText('https://timezone-converter-ccal.onrender.com/');
     toast.success('Link copied to clipboard!');
   };
+  const sliderLabels = [];
+  for (let i = 0; i <= 24 * 60; i += 180) {
+    const hour = (i / 60) % 24;
+    const period = hour >= 12 ? "PM" : "AM";
+    const formattedHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+    sliderLabels.push(
+      `${formattedHour.toString().padStart(2, "0")}:00 ${period}`
+    );
+  }
 
   return (
     <>
@@ -289,6 +298,11 @@ const TimezoneConverter = () => {
                               </Box>
                             </SliderThumb>
                           </Slider>
+                          <Flex justifyContent="space-between" mt={2}>
+                            {sliderLabels.map((label, i) => (
+                              <Text key={i}>{label}</Text>
+                            ))}
+                          </Flex>
                         </Box>
                       </Flex>
                     )}
